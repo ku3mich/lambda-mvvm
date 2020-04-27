@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MVVM example</title>
+
+    <script type="text/javascript" src="lambda.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <label data-lambda="text(m => m.title+':')">
+            <span data-lambda="text(m => m.value)"></span>
+        </label>
+        <pre><span>code:</span><span data-lambda="text(m => m.text)"></span></pre>
+        <input data-lambda="value((m,v)=> m.text = v)" />
+        <button data-lambda="click((m, e) => m.value++)">increment</button>
+        <button data-lambda="click((m, e) => m.changeTitle('oops'))">change title</button>
+    </div>
+
+    <script>
+        (function () {
+            const model = {
+                title: 'increment',
+                value: 0,
+                changeTitle: function (title) {
+                    this.title = title;
+                }
+            };
+
+            const scope = new Lambda(model, window.document.getElementById("root"));
+        })();
+    </script>
+</body>
+
+</html>
